@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=PlayMusic
+comment1.params=Notes\ Written
+comment1.target=PlayMusic(java.util.ArrayList,\ boolean)
+comment2.params=tempo\ reverb
+comment2.target=void\ play(int,\ int)
+numComments=3

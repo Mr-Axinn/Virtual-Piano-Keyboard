@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=Graphic
+comment1.params=Img
+comment1.target=Graphic(java.awt.Image)
+comment2.params=g
+comment2.target=void\ paintComponent(java.awt.Graphics)
+comment3.params=X\ Y
+comment3.target=void\ startTime(int,\ int)
+comment4.params=e
+comment4.target=void\ actionPerformed(java.awt.event.ActionEvent)
+comment5.params=
+comment5.target=void\ createPoints()
+numComments=6

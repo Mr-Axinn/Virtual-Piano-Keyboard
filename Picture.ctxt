@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.target=Picture
+comment1.params=
+comment1.target=Picture()
+comment2.params=x\ y\ width\ height
+comment2.target=void\ changePicture(int,\ int,\ int,\ int)
+comment3.params=
+comment3.target=java.awt.Image\ getImage()
+comment4.params=value
+comment4.target=int\ getGreen(int)
+comment5.params=value
+comment5.target=int\ getRed(int)
+comment6.params=value
+comment6.target=int\ getBlue(int)
+numComments=7

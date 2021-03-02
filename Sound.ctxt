@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.target=Sound
+comment1.params=N\ StartTime\ Written\ Tempo\ Reverb
+comment1.target=Sound(Note,\ long,\ boolean,\ int,\ int)
+comment2.params=
+comment2.target=void\ playSound()
+comment3.params=name
+comment3.target=void\ playSoundNormal(java.lang.String)
+numComments=4

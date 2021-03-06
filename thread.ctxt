@@ -4,4 +4,6 @@ comment1.params=S
 comment1.target=thread(Sound)
 comment2.params=
 comment2.target=void\ run()
-numComments=3
+comment3.params=
+comment3.target=void\ end()
+numComments=4

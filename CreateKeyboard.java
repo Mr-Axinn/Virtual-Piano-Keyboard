@@ -22,7 +22,7 @@ public class CreateKeyboard implements ItemListener, ActionListener, KeyListener
     JFrame pictureFrame;
     //JPanel panel;
     JButton whiteKeyBase0;
-    
+    boolean firt = true;
     
     JButton recorder;
     JButton playBack;
@@ -82,6 +82,8 @@ public class CreateKeyboard implements ItemListener, ActionListener, KeyListener
         beats.addItem("Monotone");
         beats.addItem("Vinyl");
         beats.addItemListener(this);
+        beats.setFocusable(false);
+        beats.requestFocus(false);
         panel.add(beats);
         
         
@@ -171,6 +173,7 @@ public class CreateKeyboard implements ItemListener, ActionListener, KeyListener
         
         if(j == recorder)
         {
+            
             if(!record)
             {
                 notes = new ArrayList<Note>();
@@ -211,27 +214,51 @@ public class CreateKeyboard implements ItemListener, ActionListener, KeyListener
     }
     public void itemStateChanged(ItemEvent e)
     {
-       if (e.getSource() == beats) { 
-            //tempo1.setText(jbox.getSelectedItem() + " BPM");
-            //clip.stop();
+       
+            
+        if (e.getSource() == beats) { 
+            Note n;
+            Sound g;
+            thread s;
             beat = beats.getSelectedItem() + "";
+            //System.out.println(beat);
             if(!beat.equals("None"))
             {
-                 try{
-                    Note n = new Note(0, "PianoBeat.wav", 0);
-                    Sound g = new Sound(n, 1, true, 0, 0);
-                    thread s = new thread(g);
-                    s.start();
+                 
+                try{
+                     if(beat.contains("Piano"))
+                     {
+                         n = new Note(0, "PianoBeatCopy.wav", 0);
+                         g = new Sound(n, 1, true, 0, 0);
+                         s = new thread(g);
+                    }
+                    else if(beat.contains("Mono"))
+                    {
+                        n = new Note(0, "Portrait.wav", 0);
+                         g = new Sound(n, 1, true, 0, 0);
+                         s = new thread(g);
+                    }
+                    else
+                    {
+                        n = new Note(0, "Reflect.wav", 0);
+                         g = new Sound(n, 1, true, 0, 0);
+                         s = new thread(g);
+                    }
                     
+                     s.start();
+                     //System.out.println("main thread" + s);
+                     //g.stopClip();
                 }
                 catch(Exception d)
                 {
                     System.out.println("here" + d);
                 }
             }
-       } 
+            
         
+        }
     }
+    
     public void keyReleased(KeyEvent e)
     {
         if(map.get(Character.toString(e.getKeyChar())) != null)

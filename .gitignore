@@ -1,3 +1,7 @@
 
 *.bluej
 *.bluej
+*.class
+*.ctxt
+Graphic.class
+CreateKeyboard.class

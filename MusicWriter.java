@@ -254,16 +254,23 @@ public class MusicWriter implements ActionListener, ItemListener
     }
     public void actionPerformed(ActionEvent e)
     {
-        
         JButton j = (JButton) e.getSource();
         String text = field.getText();
-        System.out.println("notes: " + notes1);
+        Note note;
         if(j == button)
         {
-             Note note =  this.correctFormatting(text);
+            try{
+                
+                note =  this.correctFormatting(text);
+            }
+            catch (Exception r)
+            {
+                message.setText("Something went wrong entering your note");
+                note = null;
+            }
              if(!(note == null))
              {
-                 System.out.println("here");
+                 try{
                  field.setText("");
                  entireSong += (note.format() + " ");
                  if(notes1.size() < 8) 
@@ -282,7 +289,7 @@ public class MusicWriter implements ActionListener, ItemListener
                  }
                  else if(notes1.size() < 24)
                  {
-                     //System.out.println("h");
+               
                      songString2 += (note.format() + " ");
                      song2.setBounds(50, 450, ((songString1.length() + 1) * 20), 30);
                      song2.setText(songString2);
@@ -292,23 +299,40 @@ public class MusicWriter implements ActionListener, ItemListener
                  {
                      message.setText("There is no more space in your song");
                  }
-                 
+                }
+                catch(Exception k)
+                {
+                    message.setText("Something went wrong in adding notes");
+                }
             }
             
         }
         else if (j == playBack)
         {
-            Note note =  this.correctFormatting(text);
-            Sound s = new Sound(note, 1, true, tempoInt, reverbInt);
-            s.playSound();
+            try{
+                note =  this.correctFormatting(text);
+                Sound s = new Sound(note, 1, true, tempoInt, reverbInt);
+                s.playSound();
+            }
+            catch(Exception g)
+            {
+                message.setText("The note you have entered can't be played");
+            }
         }
         else if (j == playBackSong)
         {
-            PlayMusic pm = new PlayMusic(notes1, true);
-            pm.play(tempoInt, reverbInt);
+            try{    
+                PlayMusic pm = new PlayMusic(notes1, true);
+                pm.play(tempoInt, reverbInt);
+            }
+            catch(Exception h)
+            {
+                message.setText("There is no song to play currently");
+            }
         }
         else if (j == remove)
         {
+            try{
             if(notes1.size() > 0)
             {
                 if(notes1.size() == 1)
@@ -358,6 +382,11 @@ public class MusicWriter implements ActionListener, ItemListener
                 message.setText("There is nothing to remove");
             }
         }
+        catch(Exception l)
+        {
+            message.setText("Something went wrong while removing notes");
+        }
+        }
         else if (j == clearAll)
         {
             songString = "";
@@ -374,7 +403,6 @@ public class MusicWriter implements ActionListener, ItemListener
             if(notes1.size() > 1)
             {
                 SaveMusic sm = new SaveMusic(notes1, true);
-                //System.out.println("saving" + notes1);
                 sm.saveMusic("musicWritten.txt");
             }
             else
@@ -390,6 +418,7 @@ public class MusicWriter implements ActionListener, ItemListener
             }
             else
             {
+                try {
                 songString = "";
                 songString1 = "";
                 songString2 = "";
@@ -400,23 +429,20 @@ public class MusicWriter implements ActionListener, ItemListener
                     if(i < 8)
                     {
                         songString += notes1.get(i).format() + " ";
-                        //System.out.println("here");
                     }
                     else if(i < 16)
                     {
                         songString1 += notes1.get(i).format() + " ";
-                        //System.out.println("here1");
                     }
                     else
                     {
                         songString2 += notes1.get(i).format() + " ";
                     }
-                    
                 }
                 if(songString.length() > 0)
                 {
                     song.setBounds(50, 350, ((songString.length() + 1) * 20), 30);
-                    System.out.println(songString);
+                  
                     song.setText(songString);
                 }
                 if(songString1.length() > 0)
@@ -434,7 +460,11 @@ public class MusicWriter implements ActionListener, ItemListener
                     message.setText("You have no previously saved songs");
                 }
             }
-            
+             catch(Exception p)
+            {
+                message.setText("Something went wrong loading saved notes");
+            }
+        }   
         }
        
     }
@@ -469,10 +499,11 @@ public class MusicWriter implements ActionListener, ItemListener
         notes[12] = "a5";
         notes[13] = "b5";
     }
-    public Note correctFormatting(String text)
+    public Note correctFormatting(String text) throws Exception
     {
+           
+               
             String note = text;
-            System.out.println("text:" + text);
             int times = 0;
             String note1 = "";
             int leng = 0;
@@ -482,19 +513,17 @@ public class MusicWriter implements ActionListener, ItemListener
                 String length = note.substring(0,1);
                 String timing = note.substring(3, note.length());
                 note1 = note.substring(1, 2).toUpperCase() + note.substring(2, 3);
-                //System.out.println(length);
-                //System.out.println(timing);
+                
                 try {
                      leng = Integer.parseInt(length);
                      times = Integer.parseInt(timing);
-                     //System.out.println("hi");
+                     
                      if(leng > 4 || leng < 1)
                      {
                          message.setText("The length should be between 1 and 4");
                          return null;
                          
-                         //System.out.println(leng);
-                         //System.out.println("Make sure your length is between 1 and 4");
+                        
                      }
                      if(times < 0 || times > 100)
                      {
@@ -520,20 +549,17 @@ public class MusicWriter implements ActionListener, ItemListener
                 catch(Exception d)
                 {
                     message.setText("You have entered a note incorrectly");
-                    System.out.println(d); 
+                   
                     field.setText("Bad Input");
-                     return null;
+                    return null;
                 }
-                //ystem.out.println(correctFormat);
-               
-                
             }
             else
             {
-                
                 field.setText("Bad Input");
                 return null;
             }
             return new Note(leng, note1, times);
         }
  }
+ 

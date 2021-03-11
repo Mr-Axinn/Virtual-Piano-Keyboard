@@ -21,15 +21,14 @@ public class SaveMusic
             bw = new BufferedWriter(writing);
             for(int i = 0; i < notes.size(); i++)
             {
-                //System.out.println(notes);
+             
                 Note note = notes.get(i);
                 if(!written)
                 {
-                     //System.out.println("here");
+                     
                      writtenLength = note.length / 100;
                      soundingTime = ((note.soundingTime * 120)/60000);
-                     //System.out.println("notes's time " + note.soundingTime);
-                    // System.out.println("actual time " + soundingTime);
+                    
                 }
                 else
                 {
@@ -40,28 +39,11 @@ public class SaveMusic
                 {
                     writtenLength = 1;
                 }
-                /*
-                if(!written)
-                {
-                    int remainder = soundingTime % 2;
-                    if(remainder != 0)
-                    {
-                        if(remainder > 1)
-                        {
-                            soundingTime += (2- remainder);
-                        }
-                        else
-                        {
-                            soundingTime -= remainder; 
-                        }
-                      
-                    }
-                }
-                */
+              
                 if(first && !written)
                 {
                     first = false;
-                    //error = soundingTime;
+                    
                 }
                 bw.write(writtenLength + note.name + (soundingTime-error) + " ");
             }

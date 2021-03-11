@@ -16,10 +16,7 @@ public class ReadMusic
            currentLine = br.readLine();
            int time = 0; 
            correctFormat = true;
-           //boolean easyFormatting = false;
-           //Length: 1, 2, 3, 4
-           //Note: A, B, C
-           //Time: 100
+
            if(currentLine != null) {
                  String[] stringNotes = currentLine.split(" ",1000);
                  for(int i = 0; i < stringNotes.length; i++) {
@@ -27,10 +24,10 @@ public class ReadMusic
                      String individualNote = stringNotes[i];
                      if(individualNote.length() > 3)
                      {
-                         //System.out.println(individualNote);
+                        
                          if(easyFormatting && individualNote.contains("/"))
                          {
-                             //System.out.println("here");
+                           
                              String[] chordNotes = individualNote.split("/", 100);
                              String length = chordNotes[0].substring(0,1);
                              leng = Integer.parseInt(length);
@@ -45,7 +42,7 @@ public class ReadMusic
                              for(int j = 0; j < chordNotes.length; j++)
                              {
                                  individualNote = chordNotes[j];
-                                 System.out.println( individualNote.substring(1, 2).toUpperCase() + individualNote.substring(2, 3));
+                                
                                  notes.add(new Note(leng, individualNote.substring(1, 2).toUpperCase() + individualNote.substring(2, 3), times));
                              }
                          }
@@ -96,7 +93,7 @@ public class ReadMusic
                              else
                              {
                                  notes.add(new Note(leng, note, times));
-                                 System.out.println(notes.get(notes.size()-1));
+                                 
                              }
                         }
                     }
@@ -105,7 +102,7 @@ public class ReadMusic
         }
         catch(Exception e)
         {
-                System.out.println("here1" + e);
+                System.out.println("Something went wrong. Please try again.");
         }
     }
 }

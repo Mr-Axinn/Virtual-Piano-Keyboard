@@ -135,8 +135,8 @@ public class TitleScreen implements ActionListener
         
         
         
-    }
-    public void actionPerformed(ActionEvent e)
+    } 
+    public void actionPerformed(ActionEvent e) 
     {
         JButton j = (JButton) e.getSource();
         if(j == button1)

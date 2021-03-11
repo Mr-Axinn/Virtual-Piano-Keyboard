@@ -14,7 +14,7 @@ import java.awt.Graphics2D;
 import java.lang.Object.*;
 import java.net.URL;
 import javax.sound.sampled.*;
-//import javafx.scene.input.KeyEvent;
+
 
 
 public class CreateKeyboard implements ItemListener, ActionListener, KeyListener
@@ -182,13 +182,11 @@ public class CreateKeyboard implements ItemListener, ActionListener, KeyListener
                 this.makeInvisible(save);
                 this.makeInvisible(playBack);
                 beginTime = System.currentTimeMillis();
-                //panel.remove(playBack);
-                //panel.remove(save);
+           
             }   
             else
             {
-                //panel.add(playBack);
-                //panel.add(save);
+             
                 this.makeVisible(save);
                 this.makeVisible(playBack);
                 
@@ -201,13 +199,13 @@ public class CreateKeyboard implements ItemListener, ActionListener, KeyListener
         }
         if(!record && j == save)
         {
-            System.out.println("here");
+           
             SaveMusic sm = new SaveMusic(notes, false);
             sm.saveMusic("musicRecorded.txt");
         }
         if(!record && j == playBack)
         {
-            System.out.println("here");
+           
             PlayMusic pm = new PlayMusic(notes, false);
             pm.play(1,2);
         }
@@ -221,7 +219,7 @@ public class CreateKeyboard implements ItemListener, ActionListener, KeyListener
             Sound g;
             thread s;
             beat = beats.getSelectedItem() + "";
-            //System.out.println(beat);
+      
             if(!beat.equals("None"))
             {
                  
@@ -246,8 +244,7 @@ public class CreateKeyboard implements ItemListener, ActionListener, KeyListener
                     }
                     
                      s.start();
-                     //System.out.println("main thread" + s);
-                     //g.stopClip();
+                
                 }
                 catch(Exception d)
                 {
@@ -273,7 +270,7 @@ public class CreateKeyboard implements ItemListener, ActionListener, KeyListener
             {
 
                 notes.add(new Note(Length, noteName, CurrentTime)); 
-                System.out.println(notes.get(notes.size()-1));
+               
             }
         
        
@@ -283,9 +280,7 @@ public class CreateKeyboard implements ItemListener, ActionListener, KeyListener
     }
     public void keyPressed(KeyEvent e)
     {
-        //System.out.println(e.getKeyChar());
         
-        //System.out.println("here");
         
         if(map.get(Character.toString(e.getKeyChar())) != null)
         {
@@ -298,7 +293,7 @@ public class CreateKeyboard implements ItemListener, ActionListener, KeyListener
             {
                 heldButtons1.put(noteName, 0);
             }
-            //System.out.println("here" + heldButtons1.get("c4"));
+          
         }
     }
     public void keyTyped(KeyEvent e)
@@ -394,7 +389,7 @@ public class CreateKeyboard implements ItemListener, ActionListener, KeyListener
           whiteKeyBase0.setBounds(148,174,75,70);
         
     }
-    public class playKey extends AbstractAction
+    public class playKey extends AbstractAction  
     {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -410,7 +405,7 @@ public class CreateKeyboard implements ItemListener, ActionListener, KeyListener
                 
                 
                 String noteName = map.get(e.getActionCommand()).substring(0,2);
-                //System.out.println(noteName);
+ 
                 int noteNum = heldButtons1.get(noteName);
                 heldButtons1.replace(noteName, noteNum + 1);
                 Note example = new Note(10, "c5", 10);

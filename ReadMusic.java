@@ -16,10 +16,7 @@ public class ReadMusic
            currentLine = br.readLine();
            int time = 0; 
            correctFormat = true;
-           //boolean easyFormatting = false;
-           //Length: 1, 2, 3, 4
-           //Note: A, B, C
-           //Time: 100
+
            if(currentLine != null) {
                  String[] stringNotes = currentLine.split(" ",1000);
                  for(int i = 0; i < stringNotes.length; i++) {
@@ -27,33 +24,21 @@ public class ReadMusic
                      String individualNote = stringNotes[i];
                      if(individualNote.length() > 3)
                      {
-                         //System.out.println(individualNote);
-                         if(easyFormatting && individualNote.contains("/"))
-                         {
-                             //System.out.println("here");
-                             String[] chordNotes = individualNote.split("/", 100);
-                             String length = chordNotes[0].substring(0,1);
-                             leng = Integer.parseInt(length);
-                             if(i > 0)
+                                String length = individualNote.substring(0,1);
+                                String timing;
+                                String note;
+                             if(individualNote.contains("-"))
                              {
-                                 times = notes.get(i-1).soundingTime + notes.get(i-1).length;
-                             }
+                                 //System.out.println("here");   
+                                 timing = individualNote.substring(4, individualNote.length());
+                                    note = individualNote.substring(1, 2).toUpperCase() + individualNote.substring(2, 4);
+                             } 
                              else
                              {
-                                 times = 0;
+                                    
+                                    timing = individualNote.substring(3, individualNote.length());
+                                    note = individualNote.substring(1, 2).toUpperCase() + individualNote.substring(2, 3);
                              }
-                             for(int j = 0; j < chordNotes.length; j++)
-                             {
-                                 individualNote = chordNotes[j];
-                                 System.out.println( individualNote.substring(1, 2).toUpperCase() + individualNote.substring(2, 3));
-                                 notes.add(new Note(leng, individualNote.substring(1, 2).toUpperCase() + individualNote.substring(2, 3), times));
-                             }
-                         }
-                         else {
-                             
-                             String length = individualNote.substring(0,1);
-                             String timing = individualNote.substring(3, individualNote.length());
-                             String note = individualNote.substring(1, 2).toUpperCase() + individualNote.substring(2, 3);
                              leng = 0;
                              times = 0;
                              try {
@@ -75,37 +60,20 @@ public class ReadMusic
                              {
                                  correctFormat = false;
                              }
-                             if(!correctFormat)
-                             {
-                                 System.out.println("You have added your notes inccorectly");
-                                 System.out.println("Make sure they are in the format LengthNameTime (1c1)");
-                             }
-                             else if(leng > 4 || leng < 1)
-                             {
-                                 System.out.println(leng);
-                                 System.out.println("Make sure your length is between 1 and 4");
-                             }
-                             else if(note.length() > 2 || note.length() < 1)
-                             {
-                                 System.out.println("Make sure you have specified a valid note");
-                             }
-                             else if(!easyFormatting && (times < 0 || times > 100))
-                             {
-                                 System.out.println("Make sure you have entered a valid timing");
-                             }
-                             else
+                             if(correctFormat)
                              {
                                  notes.add(new Note(leng, note, times));
-                                 System.out.println(notes.get(notes.size()-1));
+                                 
                              }
-                        }
+                        
                     }
                 }
             }
-        }
+            }
+        
         catch(Exception e)
         {
-                System.out.println("here1" + e);
+                System.out.println("Something went wrong. Please try again.");
         }
     }
 }

@@ -17,6 +17,7 @@ public class PlayMusic
     }
     public void play(int tempo, int reverb) 
     {
+        try{
         final long startTime = System.currentTimeMillis();
         for(int i = 0; i < notes.size(); i++)
         {
@@ -29,7 +30,11 @@ public class PlayMusic
             threads.get(i).start();
         }
         
-        
+    }
+    catch(Exception e)
+    {
+        System.out.println("There has been a problem playing this piece");
+    }
     }
     
 }

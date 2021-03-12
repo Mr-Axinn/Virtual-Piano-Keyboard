@@ -13,7 +13,7 @@ public class Picture
         try {
             img = ImageIO.read(new File("ActualPiano copy.jpg"));
         } catch (IOException e) {
-            System.out.println(e);
+            System.out.println("There was an error with the requested image");
         }
         pixels = new Pixel[img.getWidth()][img.getHeight()];
         for(int i = 0; i < pixels.length; i++) {

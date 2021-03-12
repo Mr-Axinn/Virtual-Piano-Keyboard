@@ -234,7 +234,7 @@ public class CreateKeyboard implements ItemListener, ActionListener, KeyListener
                      {
                          
                          if (audioPiano == null) {
-                             System.out.println("here");
+                            
                              audioPiano = new PianoBeat();
                          }
 
@@ -243,7 +243,7 @@ public class CreateKeyboard implements ItemListener, ActionListener, KeyListener
                              audioPiano.reset();
                          } 
                             else {
-                                System.out.println("here1");
+                               
                                 audioPiano.play();
                             }
                     }
@@ -268,12 +268,12 @@ public class CreateKeyboard implements ItemListener, ActionListener, KeyListener
                          }
 
                          if (audioReflect.isPlaying()) {
-                             System.out.println("here2");
+                             
                              audioReflect.reset();
                          } 
                          else {
                                 audioReflect.play();
-                                System.out.println("here3");
+                                
                          }
                     }
  
@@ -307,7 +307,10 @@ public class CreateKeyboard implements ItemListener, ActionListener, KeyListener
     {
         if(map.get(Character.toString(e.getKeyChar())) != null)
         {
-            String noteName = map.get(Character.toString(e.getKeyChar())).substring(0,2);
+            String str = map.get(Character.toString(e.getKeyChar()));
+            String noteName = str.substring(0,str.length());
+            
+            
             Long currentTime = System.currentTimeMillis();
             Long length = currentTime - heldButtons.get(noteName);
             int Length = (int) (length / 1);
@@ -315,7 +318,7 @@ public class CreateKeyboard implements ItemListener, ActionListener, KeyListener
         
             if(record)
             {
-
+               
                 notes.add(new Note(Length, noteName, CurrentTime)); 
                
             }
@@ -331,7 +334,10 @@ public class CreateKeyboard implements ItemListener, ActionListener, KeyListener
         
         if(map.get(Character.toString(e.getKeyChar())) != null)
         {
-            String noteName = map.get(Character.toString(e.getKeyChar())).substring(0,2);
+            String str = map.get(Character.toString(e.getKeyChar()));
+           
+            String noteName = str.substring(0,str.length());
+           
             if(heldButtons.get(noteName) == null)
             {
                 heldButtons.put(noteName, new Long(System.currentTimeMillis()));
@@ -450,9 +456,9 @@ public class CreateKeyboard implements ItemListener, ActionListener, KeyListener
                 }
                 
                 
+                String str = map.get(e.getActionCommand());
+                String noteName = str.substring(0,str.length());
                 
-                String noteName = map.get(e.getActionCommand()).substring(0,2);
- 
                 int noteNum = heldButtons1.get(noteName);
                 heldButtons1.replace(noteName, noteNum + 1);
                 Note example = new Note(10, "c5", 10);

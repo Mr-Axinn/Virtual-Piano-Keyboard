@@ -24,33 +24,21 @@ public class ReadMusic
                      String individualNote = stringNotes[i];
                      if(individualNote.length() > 3)
                      {
-                        
-                         if(easyFormatting && individualNote.contains("/"))
-                         {
-                           
-                             String[] chordNotes = individualNote.split("/", 100);
-                             String length = chordNotes[0].substring(0,1);
-                             leng = Integer.parseInt(length);
-                             if(i > 0)
+                                String length = individualNote.substring(0,1);
+                                String timing;
+                                String note;
+                             if(individualNote.contains("-"))
                              {
-                                 times = notes.get(i-1).soundingTime + notes.get(i-1).length;
-                             }
+                                 //System.out.println("here");   
+                                 timing = individualNote.substring(4, individualNote.length());
+                                    note = individualNote.substring(1, 2).toUpperCase() + individualNote.substring(2, 4);
+                             } 
                              else
                              {
-                                 times = 0;
+                                    
+                                    timing = individualNote.substring(3, individualNote.length());
+                                    note = individualNote.substring(1, 2).toUpperCase() + individualNote.substring(2, 3);
                              }
-                             for(int j = 0; j < chordNotes.length; j++)
-                             {
-                                 individualNote = chordNotes[j];
-                                
-                                 notes.add(new Note(leng, individualNote.substring(1, 2).toUpperCase() + individualNote.substring(2, 3), times));
-                             }
-                         }
-                         else {
-                             
-                             String length = individualNote.substring(0,1);
-                             String timing = individualNote.substring(3, individualNote.length());
-                             String note = individualNote.substring(1, 2).toUpperCase() + individualNote.substring(2, 3);
                              leng = 0;
                              times = 0;
                              try {
@@ -72,34 +60,17 @@ public class ReadMusic
                              {
                                  correctFormat = false;
                              }
-                             if(!correctFormat)
-                             {
-                                 System.out.println("You have added your notes inccorectly");
-                                 System.out.println("Make sure they are in the format LengthNameTime (1c1)");
-                             }
-                             else if(leng > 4 || leng < 1)
-                             {
-                                 System.out.println(leng);
-                                 System.out.println("Make sure your length is between 1 and 4");
-                             }
-                             else if(note.length() > 2 || note.length() < 1)
-                             {
-                                 System.out.println("Make sure you have specified a valid note");
-                             }
-                             else if(!easyFormatting && (times < 0 || times > 100))
-                             {
-                                 System.out.println("Make sure you have entered a valid timing");
-                             }
-                             else
+                             if(correctFormat)
                              {
                                  notes.add(new Note(leng, note, times));
                                  
                              }
-                        }
+                        
                     }
                 }
             }
-        }
+            }
+        
         catch(Exception e)
         {
                 System.out.println("Something went wrong. Please try again.");

@@ -47,8 +47,15 @@ public class Sound extends JFrame
             }
         
             Long start = System.currentTimeMillis();
-            
-            URL url = this.getClass().getClassLoader().getResource(n.name + ".wav");
+            URL url;
+            if(n.name.contains(".wav"))
+            {
+                 url = this.getClass().getClassLoader().getResource(n.name);
+            }
+            else
+            {
+                 url = this.getClass().getClassLoader().getResource(n.name + ".wav");
+            }
             AudioInputStream audioIn = AudioSystem.getAudioInputStream(url);
             clip = AudioSystem.getClip();
             clip.open(audioIn);

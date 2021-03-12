@@ -12,6 +12,9 @@ import java.awt.Component;
 import java.util.HashMap;
 import java.awt.Graphics2D;
 import java.lang.Object.*;
+import java.net.URL;
+import javax.sound.sampled.*;
+import javax.swing.*;
 public class TitleScreen implements ActionListener
 {
     JFrame pictureFrame;
@@ -25,7 +28,7 @@ public class TitleScreen implements ActionListener
     JButton musicRecorded;
     JButton musicWritten;
     JLabel error;
-    
+    Audio audio;
     JLabel instructions;
     JLabel instructions1;
     Image img;
@@ -44,7 +47,7 @@ public class TitleScreen implements ActionListener
          try {
             imgCopy = ImageIO.read(new File("ActualPiano copy2.jpg"));
         } catch (IOException e) {
-            System.out.println(e);
+            System.out.println("There has been an error reading in an image");
         }
         panel = new JPanel();
         panel.setLayout(null);
@@ -81,7 +84,7 @@ public class TitleScreen implements ActionListener
         
         
         error = new JLabel();
-        error.setBounds(50, 400, 400, 30);
+        error.setBounds(50, 400, 500, 30);
         error.setFont(new Font("Courier",Font.PLAIN, 20));
         panel.add(error);
         
@@ -153,16 +156,28 @@ public class TitleScreen implements ActionListener
         }
         else if (j == izzyMusic)
         {
-            ReadMusic rm = new ReadMusic("Izzy'sMusic.txt", false, false);
-            if(rm.notes.size() > 0)
-            {
-                error.setText("");
-                PlayMusic pm = new PlayMusic(rm.notes, true);
-                pm.play(1,2);
+            try{
+                //URL url = this.getClass().getClassLoader().getResource("IzzyPiano.wav");
+                //AudioInputStream audioIn = AudioSystem.getAudioInputStream(url);
+                //Clip clip = AudioSystem.getClip();
+                //clip.open(audioIn);
+                //clip.start();
+                if (audio == null) {
+                    audio = new MainTheme();
+                }
+
+                if (audio.isPlaying()) {
+   
+                    audio.reset();
+                } 
+                else {
+                    audio.play();
+                    error.setText("Press 'Izzy's Music' again to stop");
+                }
             }
-            else 
+            catch(Exception d)
             {
-                error.setText("Izzy's music folder is empty");
+                error.setText("There has been an error playing Izzy's Piece");
             }
         }
         else if (j == musicRecorded)

@@ -19,8 +19,12 @@ import javax.sound.sampled.*;
 
 public class CreateKeyboard implements ItemListener, ActionListener, KeyListener
 {
+    Audio audioPiano;
+    Audio audioPortrait;
+     Audio audioReflect;
     JFrame pictureFrame;
     //JPanel panel;
+    Long time = 0L;
     JButton whiteKeyBase0;
     boolean firt = true;
     
@@ -79,8 +83,8 @@ public class CreateKeyboard implements ItemListener, ActionListener, KeyListener
         beats.setBounds(35, 26, 100, 30);
         beats.addItem("None");
         beats.addItem("PianoBeat");
-        beats.addItem("Monotone");
-        beats.addItem("Vinyl");
+        beats.addItem("Elevator");
+        beats.addItem("Electronic");
         beats.addItemListener(this);
         beats.setFocusable(false);
         beats.requestFocus(false);
@@ -88,7 +92,7 @@ public class CreateKeyboard implements ItemListener, ActionListener, KeyListener
         
         
         recorder = new JButton();
-        recorder.setText("Start");
+        recorder.setText("Record");
         recorder.setBounds(1160,26,70,40);
         recorder.addActionListener(this);
         recorder.setFocusable(false);
@@ -170,7 +174,7 @@ public class CreateKeyboard implements ItemListener, ActionListener, KeyListener
     public void actionPerformed(ActionEvent e)
     {
         JButton j = (JButton) e.getSource();
-        
+       
         if(j == recorder)
         {
             
@@ -194,7 +198,7 @@ public class CreateKeyboard implements ItemListener, ActionListener, KeyListener
                 
                 playBack.setText("Play back");
                 record = false;
-                recorder.setText("Start");
+                recorder.setText("Record");
             }
         }
         if(!record && j == save)
@@ -209,46 +213,89 @@ public class CreateKeyboard implements ItemListener, ActionListener, KeyListener
             PlayMusic pm = new PlayMusic(notes, false);
             pm.play(1,2);
         }
+    
+   
     }
     public void itemStateChanged(ItemEvent e)
     {
-       
             
-        if (e.getSource() == beats) { 
-            Note n;
-            Sound g;
-            thread s;
-            beat = beats.getSelectedItem() + "";
+           
+            if (e.getSource() == beats && (System.currentTimeMillis() - time) > 200) { 
+                time = System.currentTimeMillis();
+                Note n;
+                Sound g;
+                thread s;
+                beat = beats.getSelectedItem() + "";
       
             if(!beat.equals("None"))
             {
-                 
                 try{
                      if(beat.contains("Piano"))
                      {
-                         n = new Note(0, "PianoBeatCopy.wav", 0);
-                         g = new Sound(n, 1, true, 0, 0);
-                         s = new thread(g);
+                         
+                         if (audioPiano == null) {
+                             System.out.println("here");
+                             audioPiano = new PianoBeat();
+                         }
+
+                         if (audioPiano.isPlaying()) {
+   
+                             audioPiano.reset();
+                         } 
+                            else {
+                                System.out.println("here1");
+                                audioPiano.play();
+                            }
                     }
-                    else if(beat.contains("Mono"))
+                    else if(beat.contains("Elev"))
                     {
-                        n = new Note(0, "Portrait.wav", 0);
-                         g = new Sound(n, 1, true, 0, 0);
-                         s = new thread(g);
+                        if (audioPortrait == null) {
+                             audioPortrait = new Portrait();
+                         }
+
+                         if (audioPortrait.isPlaying()) {
+   
+                             audioPortrait.reset();
+                         } 
+                            else {
+                                audioPortrait.play();
+                            }
                     }
                     else
                     {
-                        n = new Note(0, "Reflect.wav", 0);
-                         g = new Sound(n, 1, true, 0, 0);
-                         s = new thread(g);
+                       if (audioReflect == null) {
+                             audioReflect = new Reflect();
+                         }
+
+                         if (audioReflect.isPlaying()) {
+                             System.out.println("here2");
+                             audioReflect.reset();
+                         } 
+                         else {
+                                audioReflect.play();
+                                System.out.println("here3");
+                         }
                     }
-                    
-                     s.start();
-                
+ 
                 }
                 catch(Exception d)
                 {
-                    System.out.println("here" + d);
+                    System.out.println("There was something wrong playing the requested song");
+                }
+            }
+            else
+            {
+                if(audioPiano != null)
+                {
+                    audioPiano.reset();
+                }
+                if(audioPortrait != null)
+                {
+                    audioPortrait.reset();
+                }
+                if(audioReflect != null)
+                {
+                    audioReflect.reset();
                 }
             }
             
@@ -280,7 +327,7 @@ public class CreateKeyboard implements ItemListener, ActionListener, KeyListener
     }
     public void keyPressed(KeyEvent e)
     {
-        
+
         
         if(map.get(Character.toString(e.getKeyChar())) != null)
         {

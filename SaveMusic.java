@@ -49,7 +49,7 @@ public class SaveMusic
             }
         }
         catch(Exception e) {
-            System.out.println("here" + e);
+            System.out.println("Something went wrong saving the music");
         }
         try{
             bw.close();

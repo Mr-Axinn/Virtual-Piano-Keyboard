@@ -309,10 +309,18 @@ public class MusicWriter implements ActionListener, ItemListener
         }
         else if (j == playBack)
         {
+            field.setText("");
             try{
                 note =  this.correctFormatting(text);
-                Sound s = new Sound(note, 1, true, tempoInt, reverbInt);
-                s.playSound();
+                if(note != null)
+                {
+                    Sound s = new Sound(note, 1, true, tempoInt, reverbInt);
+                    s.playSound();
+                }
+                else
+                {
+                    message.setText("The note you have entered can't be played");
+                }
             }
             catch(Exception g)
             {
@@ -321,9 +329,17 @@ public class MusicWriter implements ActionListener, ItemListener
         }
         else if (j == playBackSong)
         {
+            field.setText("");
             try{    
-                PlayMusic pm = new PlayMusic(notes1, true);
-                pm.play(tempoInt, reverbInt);
+                if(!(notes1.size() == 0))
+                {
+                    PlayMusic pm = new PlayMusic(notes1, true);
+                    pm.play(tempoInt, reverbInt);
+                }
+                else
+                {
+                    message.setText("There is no song to play currently");
+                }
             }
             catch(Exception h)
             {
@@ -332,9 +348,11 @@ public class MusicWriter implements ActionListener, ItemListener
         }
         else if (j == remove)
         {
+            field.setText("");
             try{
             if(notes1.size() > 0)
             {
+                
                 if(notes1.size() == 1)
                 {
                     notes1.remove(notes1.size() - 1);
@@ -389,6 +407,7 @@ public class MusicWriter implements ActionListener, ItemListener
         }
         else if (j == clearAll)
         {
+            field.setText("");
             songString = "";
             songString1 = "";
             songString2 = "";

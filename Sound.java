@@ -47,7 +47,7 @@ public class Sound extends JFrame
             }
         
             Long start = System.currentTimeMillis();
-           
+            
             URL url = this.getClass().getClassLoader().getResource(n.name + ".wav");
             AudioInputStream audioIn = AudioSystem.getAudioInputStream(url);
             clip = AudioSystem.getClip();
@@ -63,7 +63,8 @@ public class Sound extends JFrame
             
         }
         catch(Exception e) {
-            System.out.println(e);
+            System.out.println(n.name);
+            System.out.println("There was an error playing a note");
         }
     }
   
@@ -86,7 +87,7 @@ public class Sound extends JFrame
             else
             {
                  FloatControl volume = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-                 double gain = 0.65;   
+                 double gain = 0.55;   
                  float dB = (float) (Math.log(gain) / Math.log(10.0) * 20.0);
                  volume.setValue(dB);
                  
@@ -97,7 +98,7 @@ public class Sound extends JFrame
         }
         catch(Exception e)
         {
-           System.out.println(e); 
+           System.out.println("There was an error with the piece"); 
            clip.stop();
         }
     }

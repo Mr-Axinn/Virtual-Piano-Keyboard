@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 //Source for most of this code goes to some random guy on stack overflow
+//Beats from Beats.io
 public class Audio {
 
     private Clip clip;
